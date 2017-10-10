@@ -4,9 +4,9 @@
   "description": "Chrome Dev Tools timeline mockup for presentations and educational purposes",
   "main": "index.html",
   "scripts": {
-	 "prestart": "npm run build",
+    "prestart": "npm run build",
     "start": "http-server ./",
-	"build": "node-sass dev-tools-timeline.scss dev-tools-timeline.css"
+    "build": "node-sass dev-tools-timeline.scss dev-tools-timeline.css"
   },
   "author": "",
   "license": "ISC",
