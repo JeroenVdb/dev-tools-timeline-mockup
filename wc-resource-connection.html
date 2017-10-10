@@ -1,0 +1,61 @@
+<template id="resource-connection-template">
+	<link rel="stylesheet" href="dev-tools-timeline.css">
+
+	<style media="screen">
+		:host {
+			display: flex;
+		}
+	</style>
+
+	<div class="request request--waiting fjs-resource-connection--ttfb"></div>
+	<div class="request request--connection fjs-resource-connection--connection"></div>
+	<div class="request request--waiting fjs-resource-connection--waiting-after"></div>
+</template>
+
+<script>
+	var currentDocument = document.currentScript.ownerDocument;
+
+	class ResourceConnection extends HTMLElement {
+
+		constructor() {
+			// If you define a constructor, always call super() first as it is required by the CE spec.
+			super();
+		}
+
+		// Called when element is inserted in DOM
+		connectedCallback() {
+			const shadowRoot = this.attachShadow({mode: 'open'});
+
+			// Select the template and clone it. Finally attach the cloned node to the shadowDOM's root.
+			// Current document needs to be defined to get DOM access to imported HTML
+			const template = currentDocument.querySelector('#resource-connection-template');
+			const instance = template.content.cloneNode(true);
+			shadowRoot.appendChild(instance);
+
+			const resource = this.getAttribute('resource');
+			const waiting = this.getAttribute('waiting');
+			const ttfb = this.getAttribute('ttfb');
+			const duration = this.getAttribute('duration');
+			const durationAfter = this.getAttribute('duration-after');
+			const text = this.innerHTML;
+
+			this.render(resource, waiting, ttfb, duration, durationAfter, text);
+		}
+
+		render(resource, waiting, ttfb, duration, durationAfter, text) {
+			this.shadowRoot.querySelector('.fjs-resource-connection--ttfb').className += ' ' + resource;
+
+			this.shadowRoot.querySelector('.fjs-resource-connection--connection').className += ' ' + resource;
+			this.shadowRoot.querySelector('.fjs-resource-connection--waiting-after').className += ' ' + resource;
+
+			this.shadowRoot.querySelector('.fjs-resource-connection--ttfb').style.marginLeft = waiting + 'px';
+			this.shadowRoot.querySelector('.fjs-resource-connection--ttfb').style.width = ttfb + 'px';
+			this.shadowRoot.querySelector('.fjs-resource-connection--connection').style.width = duration + 'px';
+			this.shadowRoot.querySelector('.fjs-resource-connection--waiting-after').style.width = durationAfter + 'px';
+
+			this.shadowRoot.querySelector('.fjs-resource-connection--connection').innerHTML = text;
+		}
+	}
+
+	customElements.define('resource-connection', ResourceConnection);
+</script>

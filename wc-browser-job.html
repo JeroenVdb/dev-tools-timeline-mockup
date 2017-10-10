@@ -1,0 +1,40 @@
+<template id="browser-job-template">
+	<link rel="stylesheet" href="dev-tools-timeline.css">
+	<div class="browser-job fjs-browser-job"></div>
+</template>
+
+<script>
+	var currentDocument = document.currentScript.ownerDocument;
+
+	class BrowserJob extends HTMLElement {
+		constructor() {
+			// If you define a constructor, always call super() first as it is required by the CE spec.
+			super();
+		}
+
+		// Called when element is inserted in DOM
+		connectedCallback() {
+			const shadowRoot = this.attachShadow({mode: 'open'});
+
+			// Select the template and clone it. Finally attach the cloned node to the shadowDOM's root.
+			// Current document needs to be defined to get DOM access to imported HTML
+			const template = currentDocument.querySelector('#browser-job-template');
+			const instance = template.content.cloneNode(true);
+			shadowRoot.appendChild(instance);
+
+			const resource = this.getAttribute('resource');
+			const duration = this.getAttribute('duration');
+			const text = this.innerHTML;
+
+			this.render(resource, duration, text);
+		}
+
+		render(resource, duration, text) {
+			this.shadowRoot.querySelector('.fjs-browser-job').className += ' ' + resource;
+			this.shadowRoot.querySelector('.fjs-browser-job').style.width = duration + 'px';
+			this.shadowRoot.querySelector('.fjs-browser-job').innerHTML = text;
+		}
+	}
+
+	customElements.define('browser-job', BrowserJob);
+</script>

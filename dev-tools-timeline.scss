@@ -1,0 +1,180 @@
+// Variables
+
+$white: #fff;
+$grid-grey: #eaeaea;
+$text-black: #303942;
+
+$html-dark: #6ea1e0;
+$html-light: #e0ecfa;
+
+$css-dark: #9c83e1;
+$css-light: #ebe3fa;
+
+$js-dark: #f5c15b;
+$js-light: #fbf3de;
+
+$first-paint: #f00;
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	color: $text-black;
+	font-family: '.SFNSDisplay-Regular', 'Helvetica Neue', 'Lucida Grande', sans-serif;
+	font-size: 12px;
+}
+
+.timeline {
+	background-image: repeating-linear-gradient(90deg, $white, $white 200px, $grid-grey 200px, $grid-grey 201px);
+	background-position: 10px;
+}
+
+.panel {
+	padding: 10px 10px 30px;
+	border-bottom: 1px solid $grid-grey;
+}
+
+.view-title {
+	font-size: 12px;
+}
+
+.html {
+	border-color: $html-dark;
+
+	&.browser-job {
+		background-color: $html-dark;
+	}
+
+	&.request--connection {
+		border-color: $html-dark;
+		background-color: $html-light;
+	}
+}
+
+.js {
+	border-color: $js-dark;
+
+	&.browser-job {
+		background-color: $js-dark;
+	}
+
+	&.request--connection {
+		border-color: $js-dark;
+		background-color: $js-light;
+	}
+}
+
+.css {
+	border-color: $css-dark;
+
+	&.browser-job {
+		background-color: $css-dark;
+	}
+
+	&.request--connection {
+		border-color: $css-dark;
+		background-color: $css-light;
+	}
+}
+
+.track {
+	display: flex;
+	flex-direction: row;
+}
+
+.browser-job {
+	width: 200px;
+	height: 20px;
+	margin-bottom: 2px;
+	border-width: 1px;
+	border-style: solid;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.request {
+	height: 20px;
+	margin-bottom: 2px;
+	font-size: 12px;
+	line-height: 18px;
+}
+
+.browser-job,
+.request--connection {
+	padding: 0 4px;
+}
+
+.stack + .stack,
+.browser-job + .browser-job {
+	margin-left: 2px;
+}
+
+.request--active {
+	width: 200px;
+	border-left: 0;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.request--inactive {
+	position: relative;
+	width: 150px;
+	border-right: 0;
+	border-width: 1px;
+	border-style: solid;
+}
+
+.request--connection {
+	position: relative;
+	width: 150px;
+	border-width: 1px;
+	border-right-width: 30px;
+	border-style: solid;
+	border-right-style: solid;
+}
+
+.request--waiting {
+	position: relative;
+	width: 25px;
+	border-right: 1px solid $grid-grey;
+	border-left: 1px solid $grid-grey;
+
+	&::before {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		transform: translateY(-50%);
+		border-bottom: 1px solid $grid-grey;
+		content: '';
+	}
+
+	&::after {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		transform: translateY(-50%);
+		border-bottom: 1px solid $grid-grey;
+		content: '';
+	}
+}
+
+.marker {
+	position: fixed;
+	left: 410px;
+}
+
+.line {
+	position: fixed;
+	width: 2px;
+	height: 100%;
+	background-image: repeating-linear-gradient(180deg, $first-paint, $first-paint 10px, $white 10px, $white 20px);
+}
+
+.text {
+	margin-top: 10px;
+	padding: 2px 4px;
+	background-color: $first-paint;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Chrome Dev Tools mockup</title>
+
+		<link rel="stylesheet" href="dev-tools-timeline.css">
+		<link rel="import" href="./wc-browser-job.html">
+		<link rel="import" href="./wc-resource-connection.html">
+	</head>
+	<body>
+
+		<div class="timeline">
+			<div class="marker">
+				<div class="line"></div>
+				<div class="text">First Paint</div>
+			</div>
+			<div class="panel">
+				<h2 class="view-title">
+					Network
+				</h2>
+				<div class="track">
+					<resource-connection resource="html" ttfb="50" duration="125" duration-after="10"></resource-connection>
+
+				</div>
+				<div class="track">
+					<resource-connection resource="css" waiting="75" ttfb="40" duration="10" duration-after="5"></resource-connection>
+				</div>
+				<div class="track">
+					<resource-connection resource="js" ttfb="750" duration="25" duration-after="0"></resource-connection>
+				</div>
+				<div class="track">
+					<resource-connection resource="js" ttfb="120" duration="30" duration-after="10"></resource-connection>
+				</div>
+			</div>
+
+			<div class="panel">
+				<h2 class="view-title">
+					Main
+				</h2>
+				<div class="track">
+					<div class="stack">
+						<div class="track">
+							<browser-job resource="html" duration="130">index.html</browser-job>
+						</div>
+						<div class="track">
+							<browser-job resource="css" duration="90"></browser-job>
+						</div>
+						<div class="track">
+							<browser-job resource="js" duration="40"></browser-job>
+						</div>
+					</div>
+					<div class="stack">
+						<div class="track">
+							<browser-job resource="html" duration="250"></browser-job>
+						</div>
+						<div class="track">
+							<browser-job resource="js" duration="130"></browser-job>
+							<browser-job resource="css" duration="20"></browser-job>
+						</div>
+						<div class="track">
+							<browser-job resource="js" duration="75"></browser-job>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
